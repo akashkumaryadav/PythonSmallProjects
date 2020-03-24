@@ -2,7 +2,7 @@ from tkinter import *
 
 root = Tk()
 root.title("Calculator")
-
+# root.config(bg="#594F4F")
 
 # intiatiating the label on root
 label = Entry(root, width=35, borderwidth=3)
@@ -48,10 +48,10 @@ def placeButtons():
             print(i, j)
             buttons[key_value].grid(row=i, column=j, padx=2, pady=5)
             key_value -= 1
-    buttons[key_value].grid(row=i+1, column=j-2)
-    buttons['add'].grid(row=i+1, column=j-1, columnspan=2)
-    buttons['clear'].grid(row=i+2, column=j-1, columnspan=2)
-    buttons['equal'].grid(row=i+2, column=j-2)
+    buttons[key_value].grid(row=i+1, column=j-2, padx=2, pady=5)
+    buttons['add'].grid(row=i+1, column=j-1, columnspan=2, padx=2, pady=5)
+    buttons['clear'].grid(row=i+2, column=j-1, columnspan=2, padx=2, pady=5)
+    buttons['equal'].grid(row=i+2, column=j-2, padx=2, pady=5)
 
 
 def createButtons():
@@ -60,7 +60,8 @@ def createButtons():
     """
     # creating buttons for values 0 -9
     for k in range(0, 10):
-        buttons[k] = Button(root, text=f'{k}', padx=40, pady=20)
+        buttons[k] = Button(
+            root, text=f'{k}', padx=40, pady=20, bg="#355C7D", fg="white")
 
     # assigning callbacks to the buttons with respective value
     buttons[0].config(command=lambda: action(0))
@@ -76,11 +77,11 @@ def createButtons():
 
     # functional buttns like add , equal, clear etc..
     buttons['add'] = Button(root, text='+', padx=82, pady=20,
-                            command=lambda: action('+'))
+                            command=lambda: action('+'),  bg="#355C7D", fg="white")
     buttons['equal'] = Button(root, text='=', padx=40,
-                              pady=20, command=lambda: action('='))
+                              pady=20, command=lambda: action('='),  bg="#355C7D", fg="white")
     buttons['clear'] = Button(root, text='clear', padx=78,
-                              pady=20, command=lambda: action('cls'))
+                              pady=20, command=lambda: action('cls'),  bg="#355C7D", fg="white")
     placeButtons()
 
 

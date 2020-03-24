@@ -3,14 +3,24 @@ from tkinter import *
 root = Tk()
 root.title("Calculator")
 
+
+# intiatiating the label on root
 label = Entry(root, width=35, borderwidth=3)
+
+# result label to display the input and result placed on grid
 label.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 
+# dictionary of buttons
 buttons = {}
+
+# variable to store the previous values of label
 previous = ''
 
 
-def button_click(e):
+def action(e):
+    """
+    method to perform arithmetic and logical operations with user input
+    """
     global previous
     current = label.get()
     if e == 'cls':
@@ -27,40 +37,53 @@ def button_click(e):
         label.insert(0, f'{current}{e}')
 
 
-def createButtons():
-    for k in range(0, 10):
-        buttons[k] = Button(root, text=f'{k}', padx=40, pady=20)
-    buttons[0].config(command=lambda: button_click(0))
-    buttons[1].config(command=lambda: button_click(1))
-    buttons[2].config(command=lambda: button_click(2))
-    buttons[3].config(command=lambda: button_click(3))
-    buttons[4].config(command=lambda: button_click(4))
-    buttons[5].config(command=lambda: button_click(5))
-    buttons[6].config(command=lambda: button_click(6))
-    buttons[7].config(command=lambda: button_click(7))
-    buttons[8].config(command=lambda: button_click(8))
-    buttons[9].config(command=lambda: button_click(9))
+def placeButtons():
+    """
+    method to place the buttons on the grid
+    """
+    # getting the buttons from dictionary and placing on the grid of root
     key_value = 9
     for i in range(1, 4):
         for j in range(0, 3):
             print(i, j)
             buttons[key_value].grid(row=i, column=j, padx=2, pady=5)
             key_value -= 1
-    buttons_add = Button(root, text='+', padx=82,
-                         pady=20,  command=lambda: button_click('+'))
-    buttons_equal = Button(root, text='=', padx=40,
-                           pady=20, command=lambda: button_click('='))
-    buttons_clear = Button(root, text='clear', padx=78,
-                           pady=20, command=lambda: button_click('cls'))
-    # for number 0
     buttons[key_value].grid(row=i+1, column=j-2)
-
-    # buttons[k].
-    buttons_add.grid(row=i+1, column=j-1, columnspan=2)
-    buttons_clear.grid(row=i+2, column=j-1, columnspan=2)
-    buttons_equal.grid(row=i+2, column=j-2)
+    buttons['add'].grid(row=i+1, column=j-1, columnspan=2)
+    buttons['clear'].grid(row=i+2, column=j-1, columnspan=2)
+    buttons['equal'].grid(row=i+2, column=j-2)
 
 
-createButtons()
+def createButtons():
+    """
+    method to create the buttons and initatilizes the callback
+    """
+    # creating buttons for values 0 -9
+    for k in range(0, 10):
+        buttons[k] = Button(root, text=f'{k}', padx=40, pady=20)
 
-root.mainloop()
+    # assigning callbacks to the buttons with respective value
+    buttons[0].config(command=lambda: action(0))
+    buttons[1].config(command=lambda: action(1))
+    buttons[2].config(command=lambda: action(2))
+    buttons[3].config(command=lambda: action(3))
+    buttons[4].config(command=lambda: action(4))
+    buttons[5].config(command=lambda: action(5))
+    buttons[6].config(command=lambda: action(6))
+    buttons[7].config(command=lambda: action(7))
+    buttons[8].config(command=lambda: action(8))
+    buttons[9].config(command=lambda: action(9))
+
+    # functional buttns like add , equal, clear etc..
+    buttons['add'] = Button(root, text='+', padx=82, pady=20,
+                            command=lambda: action('+'))
+    buttons['equal'] = Button(root, text='=', padx=40,
+                              pady=20, command=lambda: action('='))
+    buttons['clear'] = Button(root, text='clear', padx=78,
+                              pady=20, command=lambda: action('cls'))
+    placeButtons()
+
+
+if __name__ == '__main__':
+    createButtons()
+    root.mainloop()
